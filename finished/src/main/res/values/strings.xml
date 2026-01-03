@@ -13,6 +13,7 @@
 <resources>
   <string name="app_name">Health Connect Codelab</string>
   <string name="menu">menu</string>
+  <string name="emergency_contacts">Emergency Contacts</string>
 
   <!-- Screen titles -->
   <string name="welcome_screen">Welcome screen</string>

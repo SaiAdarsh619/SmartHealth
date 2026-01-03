@@ -27,11 +27,20 @@ const val UID_NAV_ARGUMENT = "uid"
  * @param hasMenuItem Whether this Screen should be shown as a menu item in the left-hand menu (not
  *     all screens in the navigation graph are intended to be directly reached from the menu).
  */
-enum class Screen(val route: String, val titleId: Int, val hasMenuItem: Boolean = true) {
-  WelcomeScreen("welcome_screen", R.string.welcome_screen, false),
-  ExerciseSessions("exercise_sessions", R.string.exercise_sessions),
-  ExerciseSessionDetail("exercise_session_detail", R.string.exercise_session_detail, false),
-  InputReadings("input_readings", R.string.input_readings),
-  DifferentialChanges("differential_changes", R.string.differential_changes),
-  PrivacyPolicy("privacy_policy", R.string.privacy_policy, false)
+enum class Screen(
+    val route: String,
+    val titleId: Int,
+    val hasMenuItem: Boolean = true
+) {
+    Vitals(
+        route = "vitals",
+        titleId = R.string.app_name,
+        hasMenuItem = true
+    ),
+    EmergencyContacts(
+        route = "emergency_contacts",
+        titleId = R.string.emergency_contacts,
+        hasMenuItem = true
+    )
 }
+

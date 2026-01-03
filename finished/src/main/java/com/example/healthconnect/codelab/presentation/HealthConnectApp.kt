@@ -46,64 +46,58 @@ const val TAG = "Health Connect Codelab"
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HealthConnectApp(healthConnectManager: HealthConnectManager) {
-  HealthConnectTheme {
-    val scaffoldState = rememberScaffoldState()
-    val navController = rememberNavController()
-    val scope = rememberCoroutineScope()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
+    HealthConnectTheme {
+        val scaffoldState = rememberScaffoldState()
+        val navController = rememberNavController()
+        val scope = rememberCoroutineScope()
+        val availability by healthConnectManager.availability
 
-    val availability by healthConnectManager.availability
 
-    Scaffold(
-      scaffoldState = scaffoldState,
-      topBar = {
-        TopAppBar(
-          title = {
-            val titleId = when (currentRoute) {
-              Screen.ExerciseSessions.route -> Screen.ExerciseSessions.titleId
-              Screen.InputReadings.route -> Screen.InputReadings.titleId
-              Screen.DifferentialChanges.route -> Screen.DifferentialChanges.titleId
-              else -> R.string.app_name
-            }
-            Text(stringResource(titleId))
-          },
-          navigationIcon = {
-            IconButton(
-              onClick = {
-                if (availability == HealthConnectAvailability.INSTALLED) {
-                  scope.launch {
-                    scaffoldState.drawerState.open()
-                  }
-                }
-              }
-            ) {
-              Icon(
-                imageVector = Icons.Rounded.Menu,
-                stringResource(id = R.string.menu)
-              )
-            }
-          }
-        )
-      },
-      drawerContent = {
-        if (availability == HealthConnectAvailability.INSTALLED) {
-          Drawer(
-            scope = scope,
+        Scaffold(
             scaffoldState = scaffoldState,
-            navController = navController
-          )
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(stringResource(R.string.app_name))
+                    },
+                    navigationIcon = {
+                        if (availability == HealthConnectAvailability.INSTALLED) {
+                            IconButton(
+                                onClick = {
+                                    scope.launch {
+                                        scaffoldState.drawerState.open()
+                                    }
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Menu,
+                                    contentDescription = stringResource(R.string.menu)
+                                )
+                            }
+                        }
+                    }
+                )
+            },
+            drawerContent = {
+                if (availability == HealthConnectAvailability.INSTALLED) {
+                    Drawer(
+                        scope = scope,
+                        scaffoldState = scaffoldState,
+                        navController = navController
+                    )
+                }
+            },
+            snackbarHost = {
+                SnackbarHost(it) { data ->
+                    Snackbar(snackbarData = data)
+                }
+            }
+        ) {
+            HealthConnectNavigation(
+                healthConnectManager = healthConnectManager,
+                navController = navController,
+                scaffoldState = scaffoldState
+            )
         }
-      },
-      snackbarHost = {
-        SnackbarHost(it) { data -> Snackbar(snackbarData = data) }
-      }
-    ) {
-      HealthConnectNavigation(
-        healthConnectManager = healthConnectManager,
-        navController = navController,
-        scaffoldState = scaffoldState
-      )
     }
-  }
 }

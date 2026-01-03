@@ -15,69 +15,197 @@
  */
 package com.example.healthconnect.codelab.presentation.screen.inputreadings
 
+import androidx.health.connect.client.records.HeartRateRecord
+import androidx.health.connect.client.records.OxygenSaturationRecord
+import com.example.healthconnect.codelab.presentation.model.VitalType
+import com.example.healthconnect.codelab.presentation.model.VitalUiModel
+
+
 import android.os.RemoteException
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.health.connect.client.permission.HealthPermission
-import androidx.health.connect.client.records.WeightRecord
-import androidx.health.connect.client.units.Mass
+import androidx.health.connect.client.records.StepsRecord
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.healthconnect.codelab.data.HealthConnectManager
 import java.io.IOException
 import java.time.Instant
-import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
 import java.util.UUID
 import kotlinx.coroutines.launch
 
-class InputReadingsViewModel(private val healthConnectManager: HealthConnectManager) :
+import com.example.healthconnect.codelab.data.EmergencyContactsManager
+import android.telephony.SmsManager
+import android.util.Log
+
+class InputReadingsViewModel(
+    private val healthConnectManager: HealthConnectManager,
+    private val contactsManager: EmergencyContactsManager
+) :
   ViewModel() {
   val permissions = setOf(
-    HealthPermission.getReadPermission(WeightRecord::class),
-    HealthPermission.getWritePermission(WeightRecord::class),
+      // Vitals (read-only)
+      HealthPermission.getReadPermission(androidx.health.connect.client.records.HeartRateRecord::class),
+      HealthPermission.getReadPermission(androidx.health.connect.client.records.OxygenSaturationRecord::class),
+      HealthPermission.getReadPermission(StepsRecord::class)
   )
-  var weeklyAvg: MutableState<Mass?> = mutableStateOf(Mass.kilograms(0.0))
-    private set
 
-  var permissionsGranted = mutableStateOf(false)
-    private set
+    var vitals = mutableStateOf<List<VitalUiModel>>(emptyList())
+        private set
 
-  var readingsList: MutableState<List<WeightRecord>> = mutableStateOf(listOf())
-    private set
+    var permissionsGranted = mutableStateOf(false)
+        private set
 
-  var uiState: UiState by mutableStateOf(UiState.Uninitialized)
-    private set
+    var uiState: UiState by mutableStateOf(UiState.Uninitialized)
+        private set
 
-  val permissionsLauncher = healthConnectManager.requestPermissionsActivityContract()
+    val permissionsLauncher = healthConnectManager.requestPermissionsActivityContract()
 
-  fun initialLoad() {
+    fun onPermissionsGranted() {
+        viewModelScope.launch {
+            permissionsGranted.value =
+                healthConnectManager.hasAllPermissions(permissions)
+//            Log.d("Vitals", "loadVitals called")
+
+
+            if (permissionsGranted.value) {
+
+                uiState = UiState.Done
+                loadVitals()
+            }
+        }
+    }
+
+
+
+    fun initialLoad() {
     viewModelScope.launch {
       tryWithPermissionsCheck {
-        readWeightInputs()
+//        readWeightInputs()
+          loadVitals()
       }
     }
   }
 
-  fun inputReadings(inputValue: Double) {
-    viewModelScope.launch {
-      tryWithPermissionsCheck {
-        healthConnectManager.writeWeightInput(inputValue)
-        readWeightInputs()
-      }
+//  fun inputReadings(inputValue: Double) {
+//    viewModelScope.launch {
+//      tryWithPermissionsCheck {
+//        healthConnectManager.writeWeightInput(inputValue)
+////        readWeightInputs()
+//      }
+//    }
+//  }
+
+//  private suspend fun readWeightInputs() {
+//    val now = Instant.now()
+//    val start = now.minus(7, ChronoUnit.DAYS)
+//    readingsList.value = healthConnectManager.readWeightInputs(start, now)
+//    weeklyAvg.value = healthConnectManager.computeWeeklyAverage(start, now)
+//  }
+
+    fun loadVitals() {
+        viewModelScope.launch {
+            // Keep the loop running to ensure periodic updates
+            while (true) {
+                tryWithPermissionsCheck {
+                    val vitalList = mutableListOf<VitalUiModel>()
+                    // ❤️ Heart Rate
+                    healthConnectManager.readLatestHeartRate()
+                        ?.samples
+                        ?.lastOrNull()
+                        ?.let { sample ->
+                            vitalList.add(
+                                VitalUiModel(
+                                    type = VitalType.HEART_RATE,
+                                    value = sample.beatsPerMinute.toInt().toString(),
+                                    time = sample.time
+                                )
+                            )
+                        }
+
+                    // 🫁 SpO₂
+                    healthConnectManager.readLatestSpO2()
+                        ?.let { record ->
+                            vitalList.add(
+                                VitalUiModel(
+                                    type = VitalType.SPO2,
+                                    value = (record.percentage.value).toInt().toString(),
+                                    time = record.time
+                                )
+                            )
+                        }
+
+                    // 👣 Steps
+                    val steps = healthConnectManager.readTodaySteps()
+                    if (steps > 0) {
+                        vitalList.add(
+                            VitalUiModel(
+                                type = VitalType.STEPS,
+                                value = steps.toString(),
+                                time = Instant.now()
+                            )
+                        )
+                    }
+                    vitals.value = vitalList.sortedByDescending { it.time }
+
+                    // Monitor for Emergency
+                    checkAndSendAlert(
+                        hr = vitalList.find { it.type == VitalType.HEART_RATE }?.value?.toIntOrNull(),
+                        spo2 = vitalList.find { it.type == VitalType.SPO2 }?.value?.toIntOrNull()
+                    )
+                }
+                kotlinx.coroutines.delay(5000)
+            }
+        }
     }
+
+  private var lastAlertTime: Instant? = null
+
+  private fun checkAndSendAlert(hr: Int?, spo2: Int?) {
+      var isCritical = false
+      val alertMessage = StringBuilder("EMERGENCY ALERT: User's vitals are critical! \\n")
+
+      if (hr != null) {
+          if (hr > 100) {
+              isCritical = true
+              alertMessage.append("High Heart Rate: $hr bpm. ")
+          } else if (hr < 60) {
+              isCritical = true
+              alertMessage.append("Low Heart Rate: $hr bpm. ")
+          }
+      }
+
+      if (spo2 != null && spo2 < 95) {
+          isCritical = true
+          alertMessage.append("Low SpO2: $spo2%. ")
+      }
+
+      if (isCritical) {
+          val now = Instant.now()
+          if (lastAlertTime == null || ChronoUnit.MINUTES.between(lastAlertTime, now) >= 1) {
+              alertMessage.append("Please check on them immediately.")
+              sendSmsToContacts(alertMessage.toString())
+              lastAlertTime = now
+          }
+      }
   }
 
-  private suspend fun readWeightInputs() {
-    val startOfDay = ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS)
-    val now = Instant.now()
-    val endofWeek = startOfDay.toInstant().plus(7, ChronoUnit.DAYS)
-    readingsList.value = healthConnectManager.readWeightInputs(startOfDay.toInstant(), now)
-    weeklyAvg.value =
-      healthConnectManager.computeWeeklyAverage(startOfDay.toInstant(), endofWeek)
+  private fun sendSmsToContacts(message: String) {
+      val contacts = contactsManager.getContacts()
+      if (contacts.isEmpty()) return
+
+      try {
+          val smsManager = SmsManager.getDefault()
+          contacts.forEach { contact ->
+              smsManager.sendTextMessage(contact.phoneNumber, null, message, null, null)
+          }
+          Log.d("Vitals", "Emergency SMS sent to ${contacts.size} contacts")
+      } catch (e: Exception) {
+          Log.e("Vitals", "Failed to send SMS: ${e.message}")
+      }
   }
 
   /**
@@ -120,12 +248,14 @@ class InputReadingsViewModel(private val healthConnectManager: HealthConnectMana
 
 class InputReadingsViewModelFactory(
     private val healthConnectManager: HealthConnectManager,
+    private val contactsManager: EmergencyContactsManager
 ) : ViewModelProvider.Factory {
   override fun <T : ViewModel> create(modelClass: Class<T>): T {
     if (modelClass.isAssignableFrom(InputReadingsViewModel::class.java)) {
       @Suppress("UNCHECKED_CAST")
       return InputReadingsViewModel(
-        healthConnectManager = healthConnectManager
+        healthConnectManager = healthConnectManager,
+        contactsManager = contactsManager
       ) as T
     }
     throw IllegalArgumentException("Unknown ViewModel class")
