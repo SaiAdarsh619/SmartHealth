@@ -41,6 +41,11 @@ enum class Screen(
         route = "emergency_contacts",
         titleId = R.string.emergency_contacts,
         hasMenuItem = true
+    ),
+    Profile(
+        route = "profile",
+        titleId = R.string.profile,
+        hasMenuItem = true
     )
 }
 

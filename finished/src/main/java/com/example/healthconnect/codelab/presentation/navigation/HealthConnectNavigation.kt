@@ -40,7 +40,11 @@ import com.example.healthconnect.codelab.presentation.screen.inputreadings.Input
 import com.example.healthconnect.codelab.presentation.screen.inputreadings.InputReadingsViewModel
 import com.example.healthconnect.codelab.presentation.screen.inputreadings.InputReadingsViewModelFactory
 import com.example.healthconnect.codelab.presentation.screen.emergency.EmergencyContactsScreen
+import com.example.healthconnect.codelab.presentation.screen.profile.ProfileScreen
+import com.example.healthconnect.codelab.presentation.screen.profile.ProfileViewModel
+import com.example.healthconnect.codelab.presentation.screen.profile.ProfileViewModelFactory
 import com.example.healthconnect.codelab.data.EmergencyContactsManager
+import com.example.healthconnect.codelab.data.UserProfileManager
 import androidx.compose.ui.platform.LocalContext
 import com.example.healthconnect.codelab.presentation.screen.privacypolicy.PrivacyPolicyScreen
 import com.example.healthconnect.codelab.showExceptionSnackbar
@@ -70,6 +74,7 @@ fun HealthConnectNavigation(
             val permissionsGranted by viewModel.permissionsGranted
             val vitals by viewModel.vitals
             val permissions = viewModel.permissions
+            val mlStatus by viewModel.mlStatus
 
             val permissionsLauncher =
                 rememberLauncherForActivityResult(viewModel.permissionsLauncher) {
@@ -83,6 +88,7 @@ fun HealthConnectNavigation(
                 permissionsGranted = permissionsGranted,
                 vitalsList = vitals,
                 uiState = viewModel.uiState,
+                mlStatusLabel = mlStatus.statusLabel,
                 onPermissionsResult = { viewModel.initialLoad() },
                 onPermissionsLaunch = { permissions ->
                     permissionsLauncher.launch(permissions)
@@ -95,6 +101,15 @@ fun HealthConnectNavigation(
             val context = LocalContext.current
             val contactsManager = androidx.compose.runtime.remember { EmergencyContactsManager(context) }
             EmergencyContactsScreen(contactsManager = contactsManager)
+        }
+
+        composable(Screen.Profile.route) {
+            val context = LocalContext.current
+            val userProfileManager = androidx.compose.runtime.remember { UserProfileManager(context) }
+            val profileViewModel: ProfileViewModel = viewModel(
+                factory = ProfileViewModelFactory(healthConnectManager, userProfileManager)
+            )
+            ProfileScreen(viewModel = profileViewModel)
         }
     }
 }

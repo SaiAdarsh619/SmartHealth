@@ -27,6 +27,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -38,6 +39,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -62,6 +64,7 @@ fun InputReadingsScreen(
     onPermissionsResult: () -> Unit = {},
     onPermissionsLaunch: (Set<String>) -> Unit = {},
     vitalsList: List<VitalUiModel>,
+    mlStatusLabel: String = "ML: Not started",
     ) {
 
   // Remember the last error ID, such that it is possible to avoid re-launching the error
@@ -108,6 +111,10 @@ fun InputReadingsScreen(
               VitalsSection(vitalsList)
           }
 
+          // 🤖 ML Anomaly Detector status badge (minimal — below vitals)
+          item {
+              MlStatusBadge(label = mlStatusLabel)
+          }
 
       }
     }
@@ -195,5 +202,35 @@ fun InputReadingsScreenPreview() {
   }
 }
 
+/** Small badge card showing the ML detector status below the vitals dashboard. */
+@Composable
+fun MlStatusBadge(label: String, modifier: Modifier = Modifier) {
+    val isAnomaly = label.contains("Anomaly", ignoreCase = true)
+    val isWarmingUp = label.contains("Warming", ignoreCase = true) || label.contains("Not started")
 
+    val bgColor = when {
+        isAnomaly    -> Color(0xFFFFCDD2)   // light red
+        isWarmingUp  -> Color(0xFFFFF9C4)   // light yellow
+        else         -> Color(0xFFC8E6C9)   // light green
+    }
+    val textColor = when {
+        isAnomaly   -> Color(0xFFB71C1C)
+        isWarmingUp -> Color(0xFFF57F17)
+        else        -> Color(0xFF1B5E20)
+    }
 
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 4.dp),
+        elevation = 2.dp,
+        backgroundColor = bgColor
+    ) {
+        Text(
+            text = label,
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+            style = MaterialTheme.typography.caption,
+            color = textColor
+        )
+    }
+}

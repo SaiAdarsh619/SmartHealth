@@ -50,5 +50,20 @@ fun Drawer(
                     }
                 }
         )
+
+        Text(
+            text = "My Profile",
+            style = MaterialTheme.typography.h6,
+            modifier = Modifier
+                .padding(vertical = 12.dp)
+                .clickable {
+                    scope.launch {
+                        navController.navigate(Screen.Profile.route) {
+                            popUpTo(0)
+                        }
+                        scaffoldState.drawerState.close()
+                    }
+                }
+        )
     }
 }

@@ -79,6 +79,20 @@ class HealthConnectManager(private val context: Context) {
         ).maxByOrNull { it.endTime }
     }
 
+    /**
+     * Reads heart rate history over a given window (defaults to 30 days).
+     * Used by [com.example.healthconnect.codelab.logic.SmartHealthMonitor] to compute
+     * the adaptive baseline and determine the monitoring phase.
+     */
+    suspend fun getHeartRateHistory(
+        start: Instant = Instant.now().minusSeconds(30L * 24 * 60 * 60),
+        end: Instant = Instant.now()
+    ): List<HeartRateRecord> {
+        return readData<HeartRateRecord>(
+            timeRangeFilter = TimeRangeFilter.between(start, end)
+        )
+    }
+
     suspend fun readLatestSpO2(): OxygenSaturationRecord? {
         val now = Instant.now()
         val yesterday = now.minusSeconds(24 * 60 * 60)
