@@ -52,6 +52,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.telephony.SmsManager
+import android.telephony.SubscriptionManager
 import android.util.Log
 import androidx.core.content.ContextCompat
 
@@ -321,7 +322,15 @@ class InputReadingsViewModel(
       if (contacts.isEmpty()) return
 
       try {
-          val smsManager = SmsManager.getDefault()
+          val defaultSmsId = SubscriptionManager.getDefaultSmsSubscriptionId()
+          val fallbackId = SubscriptionManager.getDefaultSubscriptionId()
+          val smsManager = if (defaultSmsId != SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
+              SmsManager.getSmsManagerForSubscriptionId(defaultSmsId)
+          } else if (fallbackId != SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
+              SmsManager.getSmsManagerForSubscriptionId(fallbackId)
+          } else {
+              SmsManager.getDefault()
+          }
           contacts.forEach { contact ->
               smsManager.sendTextMessage(contact.phoneNumber, null, message, null, null)
           }

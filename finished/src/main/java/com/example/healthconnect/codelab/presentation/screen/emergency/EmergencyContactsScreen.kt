@@ -18,6 +18,7 @@ import androidx.compose.ui.window.Dialog
 import com.example.healthconnect.codelab.data.EmergencyContact
 import com.example.healthconnect.codelab.data.EmergencyContactsManager
 import android.telephony.SmsManager
+import android.telephony.SubscriptionManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import android.Manifest
@@ -157,7 +158,15 @@ fun EmergencyContactsScreen(
                             Toast.makeText(context, "No contacts to test", Toast.LENGTH_SHORT).show()
                         } else {
                             try {
-                                val smsManager = SmsManager.getDefault()
+                                val defaultSmsId = SubscriptionManager.getDefaultSmsSubscriptionId()
+                                val fallbackId = SubscriptionManager.getDefaultSubscriptionId()
+                                val smsManager = if (defaultSmsId != SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
+                                    SmsManager.getSmsManagerForSubscriptionId(defaultSmsId)
+                                } else if (fallbackId != SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
+                                    SmsManager.getSmsManagerForSubscriptionId(fallbackId)
+                                } else {
+                                    SmsManager.getDefault()
+                                }
                                 currentContacts.forEach { contact ->
                                     smsManager.sendTextMessage(
                                         contact.phoneNumber,
