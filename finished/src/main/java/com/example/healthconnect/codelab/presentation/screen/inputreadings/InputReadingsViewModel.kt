@@ -38,18 +38,28 @@ import java.util.UUID
 import kotlinx.coroutines.launch
 
 import com.example.healthconnect.codelab.data.EmergencyContactsManager
+import com.example.healthconnect.codelab.data.UserProfileManager
 import com.example.healthconnect.codelab.logic.AlertStatus
 import com.example.healthconnect.codelab.logic.IsolationForestDetector
 import com.example.healthconnect.codelab.logic.MlAnomalyResult
 import com.example.healthconnect.codelab.logic.SystemPhase
 import com.example.healthconnect.codelab.telemetry.TelemetryManager
 import com.example.healthconnect.codelab.telemetry.TelemetrySnapshot
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.telephony.SmsManager
 import android.util.Log
+import androidx.core.content.ContextCompat
 
 class InputReadingsViewModel(
     private val healthConnectManager: HealthConnectManager,
-    private val contactsManager: EmergencyContactsManager
+    private val contactsManager: EmergencyContactsManager,
+    private val userProfileManager: UserProfileManager,
+    private val context: Context
 ) :
   ViewModel() {
   val permissions = setOf(
@@ -270,10 +280,39 @@ class InputReadingsViewModel(
       if (isCritical) {
           val now = Instant.now()
           if (AnomalyAlertLogic.shouldSendAlert(lastAlertTime, now)) {
-              val finalMessage = messageBuilder + "Please check on them immediately."
+              val userName = userProfileManager.name.ifBlank { "the user" }
+              val location = getLastKnownLocation()
+              val locationText = if (location != null) {
+                  "\nLocation: https://maps.google.com/?q=${location.latitude},${location.longitude}"
+              } else {
+                  "\nLocation: Unavailable"
+              }
+              val finalMessage = "[SmartHealth ALERT] $userName's vitals are critical!\n" +
+                  messageBuilder + "Please check on them immediately.$locationText"
               sendSmsToContacts(finalMessage)
               lastAlertTime = now
           }
+      }
+  }
+
+  @SuppressLint("MissingPermission")
+  private fun getLastKnownLocation(): Location? {
+      val fineGranted = ContextCompat.checkSelfPermission(
+          context, Manifest.permission.ACCESS_FINE_LOCATION
+      ) == PackageManager.PERMISSION_GRANTED
+      val coarseGranted = ContextCompat.checkSelfPermission(
+          context, Manifest.permission.ACCESS_COARSE_LOCATION
+      ) == PackageManager.PERMISSION_GRANTED
+      if (!fineGranted && !coarseGranted) return null
+
+      return try {
+          val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+          lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+              ?: lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+              ?: lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
+      } catch (e: Exception) {
+          Log.w("Location", "Could not get last known location: ${e.message}")
+          null
       }
   }
 
@@ -332,14 +371,18 @@ class InputReadingsViewModel(
 
 class InputReadingsViewModelFactory(
     private val healthConnectManager: HealthConnectManager,
-    private val contactsManager: EmergencyContactsManager
+    private val contactsManager: EmergencyContactsManager,
+    private val userProfileManager: com.example.healthconnect.codelab.data.UserProfileManager,
+    private val context: android.content.Context
 ) : ViewModelProvider.Factory {
   override fun <T : ViewModel> create(modelClass: Class<T>): T {
     if (modelClass.isAssignableFrom(InputReadingsViewModel::class.java)) {
       @Suppress("UNCHECKED_CAST")
       return InputReadingsViewModel(
         healthConnectManager = healthConnectManager,
-        contactsManager = contactsManager
+        contactsManager = contactsManager,
+        userProfileManager = userProfileManager,
+        context = context
       ) as T
     }
     throw IllegalArgumentException("Unknown ViewModel class")

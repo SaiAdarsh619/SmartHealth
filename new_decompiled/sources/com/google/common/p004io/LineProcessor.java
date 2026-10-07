@@ -1,0 +1,12 @@
+package com.google.common.p004io;
+
+import java.io.IOException;
+
+@ElementTypesAreNonnullByDefault
+/* loaded from: classes14.dex */
+public interface LineProcessor<T> {
+    @ParametricNullness
+    T getResult();
+
+    boolean processLine(String str) throws IOException;
+}

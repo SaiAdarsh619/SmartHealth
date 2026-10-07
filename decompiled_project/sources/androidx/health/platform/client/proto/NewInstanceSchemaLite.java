@@ -1,0 +1,9 @@
+package androidx.health.platform.client.proto;
+@CheckReturnValue
+/* loaded from: classes14.dex */
+final class NewInstanceSchemaLite implements NewInstanceSchema {
+    @Override // androidx.health.platform.client.proto.NewInstanceSchema
+    public Object newInstance(Object defaultInstance) {
+        return ((GeneratedMessageLite) defaultInstance).newMutableInstance();
+    }
+}

@@ -1,0 +1,28 @@
+package com.example.healthconnect.codelab.presentation.model;
+
+import kotlin.Metadata;
+
+/* compiled from: VitalType.kt */
+@Metadata(m286d1 = {"\u0000\u0012\n\u0002\u0018\u0002\n\u0002\u0010\u0010\n\u0000\n\u0002\u0010\u000e\n\u0002\b\t\b\u0086\u0001\u0018\u00002\b\u0012\u0004\u0012\u00020\u00000\u0001B\u0017\b\u0002\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\u0006\u0010\u0004\u001a\u00020\u0003¢\u0006\u0002\u0010\u0005R\u0011\u0010\u0002\u001a\u00020\u0003¢\u0006\b\n\u0000\u001a\u0004\b\u0006\u0010\u0007R\u0011\u0010\u0004\u001a\u00020\u0003¢\u0006\b\n\u0000\u001a\u0004\b\b\u0010\u0007j\u0002\b\tj\u0002\b\nj\u0002\b\u000b¨\u0006\f"}, m287d2 = {"Lcom/example/healthconnect/codelab/presentation/model/VitalType;", "", "title", "", "unit", "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)V", "getTitle", "()Ljava/lang/String;", "getUnit", "HEART_RATE", "SPO2", "STEPS", "finished_debug"}, m288k = 1, m289mv = {1, 8, 0}, m291xi = 48)
+/* loaded from: classes3.dex */
+public enum VitalType {
+    HEART_RATE("Heart Rate", "bpm"),
+    SPO2("SpO₂", "%"),
+    STEPS("Steps", "steps");
+
+    private final String title;
+    private final String unit;
+
+    VitalType(String title, String unit) {
+        this.title = title;
+        this.unit = unit;
+    }
+
+    public final String getTitle() {
+        return this.title;
+    }
+
+    public final String getUnit() {
+        return this.unit;
+    }
+}

@@ -1,0 +1,10 @@
+package com.google.common.util.concurrent.internal;
+/* loaded from: classes14.dex */
+public final class InternalFutures {
+    public static Throwable tryInternalFastPathGetFailure(InternalFutureFailureAccess future) {
+        return future.tryInternalFastPathGetFailure();
+    }
+
+    private InternalFutures() {
+    }
+}

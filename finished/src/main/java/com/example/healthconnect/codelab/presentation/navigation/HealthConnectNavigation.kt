@@ -65,8 +65,9 @@ fun HealthConnectNavigation(
         composable(Screen.Vitals.route) {
             val context = LocalContext.current
             val contactsManager = androidx.compose.runtime.remember { EmergencyContactsManager(context) }
+            val userProfileManager = androidx.compose.runtime.remember { UserProfileManager(context) }
             val viewModel: InputReadingsViewModel = viewModel(
-                factory = InputReadingsViewModelFactory(healthConnectManager, contactsManager)
+                factory = InputReadingsViewModelFactory(healthConnectManager, contactsManager, userProfileManager, context)
             )
 
 

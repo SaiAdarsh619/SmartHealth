@@ -1,0 +1,69 @@
+package androidx.health.platform.client.exerciseroute;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+import androidx.health.platform.client.impl.data.ProtoParcelable;
+import androidx.health.platform.client.impl.data.SharedMemory27Impl;
+import androidx.health.platform.client.proto.DataProto;
+import kotlin.Metadata;
+import kotlin.jvm.functions.Function1;
+import kotlin.jvm.internal.Intrinsics;
+
+/* compiled from: ExerciseRoute.kt */
+@Metadata(m286d1 = {"\u0000\u0010\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0006\b\u0007\u0018\u0000 \u00072\b\u0012\u0004\u0012\u00020\u00020\u0001:\u0001\u0007B\r\u0012\u0006\u0010\u0003\u001a\u00020\u0002¢\u0006\u0002\u0010\u0004R\u0014\u0010\u0003\u001a\u00020\u0002X\u0096\u0004¢\u0006\b\n\u0000\u001a\u0004\b\u0005\u0010\u0006¨\u0006\b"}, m287d2 = {"Landroidx/health/platform/client/exerciseroute/ExerciseRoute;", "Landroidx/health/platform/client/impl/data/ProtoParcelable;", "Landroidx/health/platform/client/proto/DataProto$DataPoint$SubTypeDataList;", "proto", "(Landroidx/health/platform/client/proto/DataProto$DataPoint$SubTypeDataList;)V", "getProto", "()Landroidx/health/platform/client/proto/DataProto$DataPoint$SubTypeDataList;", "Companion", "connect-client_release"}, m288k = 1, m289mv = {1, 8, 0}, m291xi = 48)
+/* loaded from: classes14.dex */
+public final class ExerciseRoute extends ProtoParcelable<DataProto.DataPoint.SubTypeDataList> {
+    public static final Parcelable.Creator<ExerciseRoute> CREATOR;
+    private final DataProto.DataPoint.SubTypeDataList proto;
+
+    @Override // androidx.health.platform.client.impl.data.ProtoData
+    public DataProto.DataPoint.SubTypeDataList getProto() {
+        return this.proto;
+    }
+
+    public ExerciseRoute(DataProto.DataPoint.SubTypeDataList proto) {
+        Intrinsics.checkNotNullParameter(proto, "proto");
+        this.proto = proto;
+    }
+
+    static {
+        ProtoParcelable.Companion companion = ProtoParcelable.INSTANCE;
+        CREATOR = new Parcelable.Creator<ExerciseRoute>() { // from class: androidx.health.platform.client.exerciseroute.ExerciseRoute$special$$inlined$newCreator$connect_client_release$1
+            /* JADX WARN: Can't rename method to resolve collision */
+            /* JADX WARN: Type inference failed for: r1v4, types: [androidx.health.platform.client.exerciseroute.ExerciseRoute, androidx.health.platform.client.impl.data.ProtoParcelable] */
+            @Override // android.os.Parcelable.Creator
+            public ExerciseRoute createFromParcel(Parcel source) {
+                Intrinsics.checkNotNullParameter(source, "source");
+                int storage = source.readInt();
+                switch (storage) {
+                    case 0:
+                        byte[] payload = source.createByteArray();
+                        if (payload == null) {
+                            return null;
+                        }
+                        DataProto.DataPoint.SubTypeDataList proto = DataProto.DataPoint.SubTypeDataList.parseFrom(payload);
+                        Intrinsics.checkNotNullExpressionValue(proto, "proto");
+                        return new ExerciseRoute(proto);
+                    case 1:
+                        return (ProtoParcelable) SharedMemory27Impl.INSTANCE.parseParcelUsingSharedMemory(source, new Function1<byte[], ExerciseRoute>() { // from class: androidx.health.platform.client.exerciseroute.ExerciseRoute$special$$inlined$newCreator$connect_client_release$1.1
+                            @Override // kotlin.jvm.functions.Function1
+                            public final ExerciseRoute invoke(byte[] it) {
+                                Intrinsics.checkNotNullParameter(it, "it");
+                                DataProto.DataPoint.SubTypeDataList proto2 = DataProto.DataPoint.SubTypeDataList.parseFrom(it);
+                                Intrinsics.checkNotNullExpressionValue(proto2, "proto");
+                                return new ExerciseRoute(proto2);
+                            }
+                        });
+                    default:
+                        throw new IllegalArgumentException("Unknown storage: " + storage);
+                }
+            }
+
+            /* JADX WARN: Can't rename method to resolve collision */
+            @Override // android.os.Parcelable.Creator
+            public ExerciseRoute[] newArray(int size) {
+                return new ExerciseRoute[size];
+            }
+        };
+    }
+}

@@ -11,7 +11,7 @@
      limitations under the License.
 -->
 <resources>
-  <string name="app_name">Health Connect Codelab</string>
+  <string name="app_name">Smart Health</string>
   <string name="menu">menu</string>
   <string name="emergency_contacts">Emergency Contacts</string>
   <string name="profile">My Profile</string>
@@ -25,8 +25,8 @@
   <string name="differential_changes">Changes</string>
 
   <!-- Welcome screen -->
-  <string name="welcome_message">Welcome to Health Connect!</string>
-  <string name="health_connect_logo">Health Connect logo</string>
+  <string name="welcome_message">Welcome to Smart Health!</string>
+  <string name="health_connect_logo">Smart Health logo</string>
   <string name="installed_welcome_message">
         Health Connect is installed on this device. Use the menu to explore the sample, with each
         screen demonstrating a different aspect of Health Connect functionality.

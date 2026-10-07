@@ -1,0 +1,137 @@
+package androidx.compose.material.icons.twotone;
+
+import androidx.compose.material.icons.Icons;
+import androidx.compose.p000ui.graphics.Brush;
+import androidx.compose.p000ui.graphics.Color;
+import androidx.compose.p000ui.graphics.SolidColor;
+import androidx.compose.p000ui.graphics.StrokeCap;
+import androidx.compose.p000ui.graphics.StrokeJoin;
+import androidx.compose.p000ui.graphics.vector.ImageVector;
+import androidx.compose.p000ui.graphics.vector.PathBuilder;
+import androidx.compose.p000ui.graphics.vector.VectorKt;
+import androidx.compose.p000ui.unit.C0504Dp;
+import kotlin.Metadata;
+import kotlin.jvm.internal.DefaultConstructorMarker;
+import kotlin.jvm.internal.Intrinsics;
+
+/* compiled from: DirtyLens.kt */
+@Metadata(m286d1 = {"\u0000\u0010\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\"\u0010\u0010\u0000\u001a\u0004\u0018\u00010\u0001X\u0082\u000e¢\u0006\u0002\n\u0000\"\u0015\u0010\u0002\u001a\u00020\u0001*\u00020\u00038F¢\u0006\u0006\u001a\u0004\b\u0004\u0010\u0005¨\u0006\u0006"}, m287d2 = {"_dirtyLens", "Landroidx/compose/ui/graphics/vector/ImageVector;", "DirtyLens", "Landroidx/compose/material/icons/Icons$TwoTone;", "getDirtyLens", "(Landroidx/compose/material/icons/Icons$TwoTone;)Landroidx/compose/ui/graphics/vector/ImageVector;", "material-icons-extended-twotone_release"}, m288k = 2, m289mv = {1, 7, 1}, m291xi = 48)
+/* loaded from: classes.dex */
+public final class DirtyLensKt {
+    private static ImageVector _dirtyLens;
+
+    public static final ImageVector getDirtyLens(Icons.TwoTone $this$DirtyLens) {
+        ImageVector.Builder m2572addPathoIyEayM;
+        Intrinsics.checkNotNullParameter($this$DirtyLens, "<this>");
+        if (_dirtyLens != null) {
+            ImageVector imageVector = _dirtyLens;
+            Intrinsics.checkNotNull(imageVector);
+            return imageVector;
+        }
+        ImageVector.Builder $this$_get_DirtyLens__u24lambda_u2d3 = new ImageVector.Builder("TwoTone.DirtyLens", C0504Dp.m4382constructorimpl(24.0f), C0504Dp.m4382constructorimpl(24.0f), 24.0f, 24.0f, 0L, 0, 96, (DefaultConstructorMarker) null);
+        int pathFillType$iv = VectorKt.getDefaultFillType();
+        Brush fill$iv$iv = new SolidColor(Color.INSTANCE.m2022getBlack0d7_KjU(), null);
+        int strokeLineCap$iv$iv = StrokeCap.INSTANCE.m2300getButtKaPHkGw();
+        int strokeLineJoin$iv$iv = StrokeJoin.INSTANCE.m2310getBevelLxFBmk8();
+        PathBuilder $this$PathData_u24lambda_u2d0$iv$iv$iv = new PathBuilder();
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.moveTo(14.12f, 5.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.horizontalLineTo(9.88f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.lineTo(8.05f, 7.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.horizontalLineTo(4.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.verticalLineToRelative(12.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.horizontalLineToRelative(7.27f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(0.14f, -0.98f, 0.42f, -2.05f, -0.16f, -2.43f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(-0.89f, -0.59f, -1.27f, 2.06f, -2.8f, 1.35f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(-1.39f, -1.12f, 1.05f, -1.29f, 0.5f, -3.27f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(-0.22f, -0.79f, -2.28f, 0.36f, -2.4f, -1.24f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(-0.08f, -1.0f, 1.49f, -0.74f, 1.51f, -1.49f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(0.03f, -0.75f, -1.03f, -1.05f, -0.25f, -1.91f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(0.22f, -0.24f, 0.71f, -0.26f, 0.91f, -0.19f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(0.79f, 0.27f, 1.55f, 1.82f, 2.51f, 1.19f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(1.03f, -0.66f, -1.88f, -2.35f, 0.0f, -2.86f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(1.64f, -0.44f, 1.31f, 2.08f, 2.65f, 2.44f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(1.94f, 0.52f, 2.65f, -4.55f, 4.41f, -2.33f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(1.85f, 2.33f, -3.43f, 2.27f, -2.85f, 4.01f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(0.34f, 1.01f, 2.15f, -1.2f, 2.76f, 0.53f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(0.64f, 1.83f, -3.09f, 0.82f, -3.04f, 1.66f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(0.06f, 0.83f, 2.41f, 0.55f, 1.64f, 2.12f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(-1.14f, 1.86f, -3.0f, -1.03f, -3.81f, 0.09f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(-0.39f, 0.57f, -0.09f, 1.49f, 0.13f, 2.33f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.horizontalLineTo(20.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.verticalLineTo(7.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.horizontalLineToRelative(-4.05f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.lineTo(14.12f, 5.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.close();
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.moveTo(19.0f, 17.15f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(0.0f, 0.48f, -0.38f, 0.86f, -0.86f, 0.86f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveToRelative(-0.47f, 0.0f, -0.86f, -0.38f, -0.86f, -0.86f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.reflectiveCurveToRelative(0.38f, -0.86f, 0.86f, -0.86f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.curveTo(18.61f, 16.29f, 19.0f, 16.67f, 19.0f, 17.15f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv.close();
+        $this$_get_DirtyLens__u24lambda_u2d3.m2572addPathoIyEayM($this$PathData_u24lambda_u2d0$iv$iv$iv.getNodes(), (r30 & 2) != 0 ? VectorKt.getDefaultFillType() : pathFillType$iv, (r30 & 4) != 0 ? "" : "", (r30 & 8) != 0 ? null : fill$iv$iv, (r30 & 16) != 0 ? 1.0f : 0.3f, (r30 & 32) == 0 ? null : null, (r30 & 64) != 0 ? 1.0f : 0.3f, (r30 & 128) != 0 ? 0.0f : 1.0f, (r30 & 256) != 0 ? VectorKt.getDefaultStrokeLineCap() : strokeLineCap$iv$iv, (r30 & 512) != 0 ? VectorKt.getDefaultStrokeLineJoin() : strokeLineJoin$iv$iv, (r30 & 1024) != 0 ? 4.0f : 1.0f, (r30 & 2048) != 0 ? 0.0f : 0.0f, (r30 & 4096) == 0 ? 0.0f : 1.0f, (r30 & 8192) == 0 ? 0.0f : 0.0f);
+        int pathFillType$iv2 = VectorKt.getDefaultFillType();
+        Brush fill$iv$iv2 = new SolidColor(Color.INSTANCE.m2022getBlack0d7_KjU(), null);
+        int strokeLineCap$iv$iv2 = StrokeCap.INSTANCE.m2300getButtKaPHkGw();
+        int strokeLineJoin$iv$iv2 = StrokeJoin.INSTANCE.m2310getBevelLxFBmk8();
+        PathBuilder $this$PathData_u24lambda_u2d0$iv$iv$iv2 = new PathBuilder();
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.moveTo(20.0f, 5.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.horizontalLineToRelative(-3.17f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.lineTo(15.0f, 3.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.horizontalLineTo(9.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.lineTo(7.17f, 5.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.horizontalLineTo(4.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveTo(2.9f, 5.0f, 2.0f, 5.9f, 2.0f, 7.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.verticalLineToRelative(12.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(0.0f, 1.1f, 0.9f, 2.0f, 2.0f, 2.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.horizontalLineToRelative(16.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(1.1f, 0.0f, 2.0f, -0.9f, 2.0f, -2.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.verticalLineTo(7.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveTo(22.0f, 5.9f, 21.1f, 5.0f, 20.0f, 5.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.close();
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.moveTo(20.0f, 19.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.horizontalLineToRelative(-7.02f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(-0.22f, -0.84f, -0.52f, -1.76f, -0.13f, -2.33f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(0.81f, -1.12f, 2.67f, 1.77f, 3.81f, -0.09f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(0.77f, -1.57f, -1.58f, -1.29f, -1.64f, -2.12f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(-0.05f, -0.84f, 3.68f, 0.17f, 3.04f, -1.66f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(-0.61f, -1.73f, -2.42f, 0.48f, -2.76f, -0.53f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(-0.58f, -1.74f, 4.7f, -1.68f, 2.85f, -4.01f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(-1.76f, -2.22f, -2.47f, 2.85f, -4.41f, 2.33f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(-1.34f, -0.36f, -1.01f, -2.88f, -2.65f, -2.44f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(-1.88f, 0.51f, 1.03f, 2.2f, 0.0f, 2.86f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(-0.96f, 0.63f, -1.72f, -0.92f, -2.51f, -1.19f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(-0.2f, -0.07f, -0.69f, -0.05f, -0.91f, 0.19f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(-0.78f, 0.86f, 0.28f, 1.16f, 0.25f, 1.91f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(-0.02f, 0.75f, -1.59f, 0.49f, -1.51f, 1.49f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(0.12f, 1.6f, 2.18f, 0.45f, 2.4f, 1.24f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(0.55f, 1.98f, -1.89f, 2.15f, -0.5f, 3.27f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(1.53f, 0.71f, 1.91f, -1.94f, 2.8f, -1.35f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.curveToRelative(0.58f, 0.38f, 0.3f, 1.45f, 0.16f, 2.43f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.horizontalLineTo(4.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.verticalLineTo(7.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.horizontalLineToRelative(4.05f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.lineToRelative(1.83f, -2.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.horizontalLineToRelative(4.24f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.lineToRelative(1.83f, 2.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.horizontalLineTo(20.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.verticalLineTo(19.0f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv2.close();
+        $this$_get_DirtyLens__u24lambda_u2d3.m2572addPathoIyEayM($this$PathData_u24lambda_u2d0$iv$iv$iv2.getNodes(), (r30 & 2) != 0 ? VectorKt.getDefaultFillType() : pathFillType$iv2, (r30 & 4) != 0 ? "" : "", (r30 & 8) != 0 ? null : fill$iv$iv2, (r30 & 16) != 0 ? 1.0f : 1.0f, (r30 & 32) == 0 ? null : null, (r30 & 64) != 0 ? 1.0f : 1.0f, (r30 & 128) != 0 ? 0.0f : 1.0f, (r30 & 256) != 0 ? VectorKt.getDefaultStrokeLineCap() : strokeLineCap$iv$iv2, (r30 & 512) != 0 ? VectorKt.getDefaultStrokeLineJoin() : strokeLineJoin$iv$iv2, (r30 & 1024) != 0 ? 4.0f : 1.0f, (r30 & 2048) != 0 ? 0.0f : 0.0f, (r30 & 4096) == 0 ? 0.0f : 1.0f, (r30 & 8192) == 0 ? 0.0f : 0.0f);
+        int pathFillType$iv3 = VectorKt.getDefaultFillType();
+        Brush fill$iv$iv3 = new SolidColor(Color.INSTANCE.m2022getBlack0d7_KjU(), null);
+        int strokeLineCap$iv$iv3 = StrokeCap.INSTANCE.m2300getButtKaPHkGw();
+        int strokeLineJoin$iv$iv3 = StrokeJoin.INSTANCE.m2310getBevelLxFBmk8();
+        PathBuilder $this$PathData_u24lambda_u2d0$iv$iv$iv3 = new PathBuilder();
+        $this$PathData_u24lambda_u2d0$iv$iv$iv3.moveTo(17.28f, 17.15f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv3.curveToRelative(0.0f, 0.48f, 0.39f, 0.86f, 0.86f, 0.86f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv3.curveToRelative(0.48f, 0.0f, 0.86f, -0.38f, 0.86f, -0.86f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv3.reflectiveCurveToRelative(-0.39f, -0.86f, -0.86f, -0.86f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv3.curveTo(17.66f, 16.29f, 17.28f, 16.67f, 17.28f, 17.15f);
+        $this$PathData_u24lambda_u2d0$iv$iv$iv3.close();
+        m2572addPathoIyEayM = $this$_get_DirtyLens__u24lambda_u2d3.m2572addPathoIyEayM($this$PathData_u24lambda_u2d0$iv$iv$iv3.getNodes(), (r30 & 2) != 0 ? VectorKt.getDefaultFillType() : pathFillType$iv3, (r30 & 4) != 0 ? "" : "", (r30 & 8) != 0 ? null : fill$iv$iv3, (r30 & 16) != 0 ? 1.0f : 1.0f, (r30 & 32) == 0 ? null : null, (r30 & 64) != 0 ? 1.0f : 1.0f, (r30 & 128) != 0 ? 0.0f : 1.0f, (r30 & 256) != 0 ? VectorKt.getDefaultStrokeLineCap() : strokeLineCap$iv$iv3, (r30 & 512) != 0 ? VectorKt.getDefaultStrokeLineJoin() : strokeLineJoin$iv$iv3, (r30 & 1024) != 0 ? 4.0f : 1.0f, (r30 & 2048) != 0 ? 0.0f : 0.0f, (r30 & 4096) == 0 ? 0.0f : 1.0f, (r30 & 8192) == 0 ? 0.0f : 0.0f);
+        _dirtyLens = m2572addPathoIyEayM.build();
+        ImageVector imageVector2 = _dirtyLens;
+        Intrinsics.checkNotNull(imageVector2);
+        return imageVector2;
+    }
+}

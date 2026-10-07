@@ -1,0 +1,78 @@
+package androidx.health.connect.client.impl.platform.aggregate;
+
+import androidx.health.connect.client.records.Vo2MaxRecord;
+import java.time.LocalDateTime;
+import kotlin.Metadata;
+import kotlin.jvm.internal.Intrinsics;
+
+/* compiled from: TimeRange.kt */
+@Metadata(m286d1 = {"\u0000(\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\n\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\b\n\u0000\n\u0002\u0010\u000e\n\u0000\b\u0080\b\u0018\u00002\b\u0012\u0004\u0012\u00020\u00020\u0001B\u0015\u0012\u0006\u0010\u0003\u001a\u00020\u0002\u0012\u0006\u0010\u0004\u001a\u00020\u0002¢\u0006\u0002\u0010\u0005J\t\u0010\t\u001a\u00020\u0002HÆ\u0003J\t\u0010\n\u001a\u00020\u0002HÆ\u0003J\u001d\u0010\u000b\u001a\u00020\u00002\b\b\u0002\u0010\u0003\u001a\u00020\u00022\b\b\u0002\u0010\u0004\u001a\u00020\u0002HÆ\u0001J\u0013\u0010\f\u001a\u00020\r2\b\u0010\u000e\u001a\u0004\u0018\u00010\u000fHÖ\u0003J\t\u0010\u0010\u001a\u00020\u0011HÖ\u0001J\t\u0010\u0012\u001a\u00020\u0013HÖ\u0001R\u0014\u0010\u0004\u001a\u00020\u0002X\u0096\u0004¢\u0006\b\n\u0000\u001a\u0004\b\u0006\u0010\u0007R\u0014\u0010\u0003\u001a\u00020\u0002X\u0096\u0004¢\u0006\b\n\u0000\u001a\u0004\b\b\u0010\u0007¨\u0006\u0014"}, m287d2 = {"Landroidx/health/connect/client/impl/platform/aggregate/LocalTimeRange;", "Landroidx/health/connect/client/impl/platform/aggregate/TimeRange;", "Ljava/time/LocalDateTime;", "startTime", "endTime", "(Ljava/time/LocalDateTime;Ljava/time/LocalDateTime;)V", "getEndTime", "()Ljava/time/LocalDateTime;", "getStartTime", "component1", "component2", "copy", "equals", "", Vo2MaxRecord.MeasurementMethod.OTHER, "", "hashCode", "", "toString", "", "connect-client_release"}, m288k = 1, m289mv = {1, 8, 0}, m291xi = 48)
+/* loaded from: classes14.dex */
+public final /* data */ class LocalTimeRange implements TimeRange<LocalDateTime> {
+    private final LocalDateTime endTime;
+    private final LocalDateTime startTime;
+
+    public static /* synthetic */ LocalTimeRange copy$default(LocalTimeRange localTimeRange, LocalDateTime localDateTime, LocalDateTime localDateTime2, int i, Object obj) {
+        if ((i & 1) != 0) {
+            localDateTime = localTimeRange.startTime;
+        }
+        if ((i & 2) != 0) {
+            localDateTime2 = localTimeRange.endTime;
+        }
+        return localTimeRange.copy(localDateTime, localDateTime2);
+    }
+
+    /* renamed from: component1, reason: from getter */
+    public final LocalDateTime getStartTime() {
+        return this.startTime;
+    }
+
+    /* renamed from: component2, reason: from getter */
+    public final LocalDateTime getEndTime() {
+        return this.endTime;
+    }
+
+    public final LocalTimeRange copy(LocalDateTime startTime, LocalDateTime endTime) {
+        Intrinsics.checkNotNullParameter(startTime, "startTime");
+        Intrinsics.checkNotNullParameter(endTime, "endTime");
+        return new LocalTimeRange(startTime, endTime);
+    }
+
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof LocalTimeRange)) {
+            return false;
+        }
+        LocalTimeRange localTimeRange = (LocalTimeRange) other;
+        return Intrinsics.areEqual(this.startTime, localTimeRange.startTime) && Intrinsics.areEqual(this.endTime, localTimeRange.endTime);
+    }
+
+    public int hashCode() {
+        return (this.startTime.hashCode() * 31) + this.endTime.hashCode();
+    }
+
+    public String toString() {
+        return "LocalTimeRange(startTime=" + this.startTime + ", endTime=" + this.endTime + ')';
+    }
+
+    public LocalTimeRange(LocalDateTime startTime, LocalDateTime endTime) {
+        Intrinsics.checkNotNullParameter(startTime, "startTime");
+        Intrinsics.checkNotNullParameter(endTime, "endTime");
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    /* JADX WARN: Can't rename method to resolve collision */
+    @Override // androidx.health.connect.client.impl.platform.aggregate.TimeRange
+    public LocalDateTime getStartTime() {
+        return this.startTime;
+    }
+
+    /* JADX WARN: Can't rename method to resolve collision */
+    @Override // androidx.health.connect.client.impl.platform.aggregate.TimeRange
+    public LocalDateTime getEndTime() {
+        return this.endTime;
+    }
+}

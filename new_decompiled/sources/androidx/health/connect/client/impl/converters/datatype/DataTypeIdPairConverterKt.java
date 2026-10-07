@@ -1,0 +1,35 @@
+package androidx.health.connect.client.impl.converters.datatype;
+
+import androidx.health.connect.client.records.Record;
+import androidx.health.platform.client.proto.RequestProto;
+import com.example.healthconnect.codelab.presentation.navigation.ScreenKt;
+import java.util.ArrayList;
+import java.util.List;
+import kotlin.Metadata;
+import kotlin.jvm.internal.Intrinsics;
+import kotlin.reflect.KClass;
+
+/* compiled from: DataTypeIdPairConverter.kt */
+@Metadata(m286d1 = {"\u0000 \n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0000\n\u0002\u0010 \n\u0002\b\u0002\u001a\u001e\u0010\u0000\u001a\u00020\u00012\u000e\u0010\u0002\u001a\n\u0012\u0006\b\u0001\u0012\u00020\u00040\u00032\u0006\u0010\u0005\u001a\u00020\u0006\u001a*\u0010\u0007\u001a\b\u0012\u0004\u0012\u00020\u00010\b2\u000e\u0010\u0002\u001a\n\u0012\u0006\b\u0001\u0012\u00020\u00040\u00032\f\u0010\t\u001a\b\u0012\u0004\u0012\u00020\u00060\b¨\u0006\n"}, m287d2 = {"toDataTypeIdPairProto", "Landroidx/health/platform/client/proto/RequestProto$DataTypeIdPair;", "dataTypeKC", "Lkotlin/reflect/KClass;", "Landroidx/health/connect/client/records/Record;", ScreenKt.UID_NAV_ARGUMENT, "", "toDataTypeIdPairProtoList", "", "uidsList", "connect-client_release"}, m288k = 2, m289mv = {1, 8, 0}, m291xi = 48)
+/* loaded from: classes14.dex */
+public final class DataTypeIdPairConverterKt {
+    public static final RequestProto.DataTypeIdPair toDataTypeIdPairProto(KClass<? extends Record> dataTypeKC, String uid) {
+        Intrinsics.checkNotNullParameter(dataTypeKC, "dataTypeKC");
+        Intrinsics.checkNotNullParameter(uid, "uid");
+        RequestProto.DataTypeIdPair build = RequestProto.DataTypeIdPair.newBuilder().setDataType(DataTypeConverterKt.toDataType(dataTypeKC)).setId(uid).build();
+        Intrinsics.checkNotNullExpressionValue(build, "newBuilder().setDataType…ype()).setId(uid).build()");
+        return build;
+    }
+
+    public static final List<RequestProto.DataTypeIdPair> toDataTypeIdPairProtoList(KClass<? extends Record> dataTypeKC, List<String> uidsList) {
+        Intrinsics.checkNotNullParameter(dataTypeKC, "dataTypeKC");
+        Intrinsics.checkNotNullParameter(uidsList, "uidsList");
+        List dataTypeIdPairList = new ArrayList();
+        for (String uid : uidsList) {
+            RequestProto.DataTypeIdPair build = RequestProto.DataTypeIdPair.newBuilder().setDataType(DataTypeConverterKt.toDataType(dataTypeKC)).setId(uid).build();
+            Intrinsics.checkNotNullExpressionValue(build, "newBuilder()\n           …\n                .build()");
+            dataTypeIdPairList.add(build);
+        }
+        return dataTypeIdPairList;
+    }
+}

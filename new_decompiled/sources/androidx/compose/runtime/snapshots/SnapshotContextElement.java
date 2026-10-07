@@ -1,0 +1,51 @@
+package androidx.compose.runtime.snapshots;
+
+import androidx.compose.runtime.ExperimentalComposeApi;
+import kotlin.Metadata;
+import kotlin.coroutines.CoroutineContext;
+import kotlin.jvm.functions.Function2;
+import kotlin.jvm.internal.Intrinsics;
+
+/* compiled from: SnapshotContextElement.kt */
+@Metadata(m286d1 = {"\u0000\f\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\bg\u0018\u0000 \u00022\u00020\u0001:\u0001\u0002ø\u0001\u0000\u0082\u0002\u0006\n\u0004\b!0\u0001¨\u0006\u0003À\u0006\u0001"}, m287d2 = {"Landroidx/compose/runtime/snapshots/SnapshotContextElement;", "Lkotlin/coroutines/CoroutineContext$Element;", "Key", "runtime_release"}, m288k = 1, m289mv = {1, 7, 1}, m291xi = 48)
+@ExperimentalComposeApi
+/* loaded from: classes.dex */
+public interface SnapshotContextElement extends CoroutineContext.Element {
+
+    /* renamed from: Key, reason: from kotlin metadata */
+    public static final Companion INSTANCE = Companion.$$INSTANCE;
+
+    /* compiled from: SnapshotContextElement.kt */
+    @Metadata(m288k = 3, m289mv = {1, 7, 1}, m291xi = 48)
+    public static final class DefaultImpls {
+        public static <R> R fold(SnapshotContextElement snapshotContextElement, R r, Function2<? super R, ? super CoroutineContext.Element, ? extends R> operation) {
+            Intrinsics.checkNotNullParameter(operation, "operation");
+            return (R) CoroutineContext.Element.DefaultImpls.fold(snapshotContextElement, r, operation);
+        }
+
+        public static <E extends CoroutineContext.Element> E get(SnapshotContextElement snapshotContextElement, CoroutineContext.Key<E> key) {
+            Intrinsics.checkNotNullParameter(key, "key");
+            return (E) CoroutineContext.Element.DefaultImpls.get(snapshotContextElement, key);
+        }
+
+        public static CoroutineContext minusKey(SnapshotContextElement $this, CoroutineContext.Key<?> key) {
+            Intrinsics.checkNotNullParameter(key, "key");
+            return CoroutineContext.Element.DefaultImpls.minusKey($this, key);
+        }
+
+        public static CoroutineContext plus(SnapshotContextElement $this, CoroutineContext context) {
+            Intrinsics.checkNotNullParameter(context, "context");
+            return CoroutineContext.Element.DefaultImpls.plus($this, context);
+        }
+    }
+
+    /* compiled from: SnapshotContextElement.kt */
+    @Metadata(m286d1 = {"\u0000\u0010\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\b\u0086\u0003\u0018\u00002\b\u0012\u0004\u0012\u00020\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0003¨\u0006\u0004"}, m287d2 = {"Landroidx/compose/runtime/snapshots/SnapshotContextElement$Key;", "Lkotlin/coroutines/CoroutineContext$Key;", "Landroidx/compose/runtime/snapshots/SnapshotContextElement;", "()V", "runtime_release"}, m288k = 1, m289mv = {1, 7, 1}, m291xi = 48)
+    /* renamed from: androidx.compose.runtime.snapshots.SnapshotContextElement$Key, reason: from kotlin metadata */
+    public static final class Companion implements CoroutineContext.Key<SnapshotContextElement> {
+        static final /* synthetic */ Companion $$INSTANCE = new Companion();
+
+        private Companion() {
+        }
+    }
+}
