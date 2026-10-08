@@ -48,6 +48,11 @@ import com.example.healthconnect.codelab.data.UserProfileManager
 import androidx.compose.ui.platform.LocalContext
 import com.example.healthconnect.codelab.presentation.screen.privacypolicy.PrivacyPolicyScreen
 import com.example.healthconnect.codelab.showExceptionSnackbar
+import android.content.Intent
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import com.example.healthconnect.codelab.service.HealthMonitorService
 
 /**
  * Provides the navigation in the app.
@@ -84,12 +89,23 @@ fun HealthConnectNavigation(
                 }
 
 
+            var isServiceRunning by remember { mutableStateOf(false) }
+
             InputReadingsScreen(
                 permissions = permissions,
                 permissionsGranted = permissionsGranted,
                 vitalsList = vitals,
                 uiState = viewModel.uiState,
                 mlStatusLabel = mlStatus.statusLabel,
+                isServiceRunning = isServiceRunning,
+                onStartService = {
+                    context.startForegroundService(HealthMonitorService.startIntent(context))
+                    isServiceRunning = true
+                },
+                onStopService = {
+                    context.startService(HealthMonitorService.stopIntent(context))
+                    isServiceRunning = false
+                },
                 onPermissionsResult = { viewModel.initialLoad() },
                 onPermissionsLaunch = { permissions ->
                     permissionsLauncher.launch(permissions)

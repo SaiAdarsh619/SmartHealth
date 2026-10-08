@@ -54,6 +54,10 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import android.content.Intent
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.runtime.setValue
+import com.example.healthconnect.codelab.service.HealthMonitorService
 
 @Composable
 fun InputReadingsScreen(
@@ -65,6 +69,9 @@ fun InputReadingsScreen(
     onPermissionsLaunch: (Set<String>) -> Unit = {},
     vitalsList: List<VitalUiModel>,
     mlStatusLabel: String = "ML: Not started",
+    isServiceRunning: Boolean = false,
+    onStartService: () -> Unit = {},
+    onStopService: () -> Unit = {},
     ) {
 
   // Remember the last error ID, such that it is possible to avoid re-launching the error
@@ -114,6 +121,15 @@ fun InputReadingsScreen(
           // 🤖 ML Anomaly Detector status badge (minimal — below vitals)
           item {
               MlStatusBadge(label = mlStatusLabel)
+          }
+
+          // ⚙️ Background Monitor toggle
+          item {
+              BackgroundMonitorCard(
+                  isRunning = isServiceRunning,
+                  onStart = onStartService,
+                  onStop = onStopService
+              )
           }
 
       }
@@ -232,5 +248,57 @@ fun MlStatusBadge(label: String, modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.caption,
             color = textColor
         )
+    }
+}
+
+/** Card that shows background monitoring status with a start/stop toggle button. */
+@Composable
+fun BackgroundMonitorCard(
+    isRunning: Boolean,
+    onStart: () -> Unit,
+    onStop: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val bgColor   = if (isRunning) Color(0xFFE8F5E9) else Color(0xFFF5F5F5)
+    val textColor = if (isRunning) Color(0xFF1B5E20) else Color(0xFF616161)
+    val statusText = if (isRunning) "🟢 Background Monitoring: ON" else "⚫ Background Monitoring: OFF"
+
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 4.dp),
+        elevation = 2.dp,
+        backgroundColor = bgColor
+    ) {
+        Column(
+            modifier = Modifier.padding(12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = statusText,
+                style = MaterialTheme.typography.body2,
+                color = textColor
+            )
+            Text(
+                text = if (isRunning)
+                    "Vitals are monitored even when app is closed"
+                else
+                    "Tap Start to monitor vitals in background",
+                style = MaterialTheme.typography.caption,
+                color = textColor
+            )
+            Button(
+                onClick = if (isRunning) onStop else onStart,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = if (isRunning) Color(0xFFEF5350) else Color(0xFF43A047)
+                )
+            ) {
+                Text(
+                    text = if (isRunning) "Stop Monitoring" else "Start Monitoring",
+                    color = Color.White
+                )
+            }
+        }
     }
 }
